@@ -26,12 +26,14 @@
         <section class="card-container p-4 mb-10 rounded-lg flex-row w-9/12 bg-gray-100 shadow-md">
             <div class="card-head flex w-full mb-3 justify-between">
                 <div class="left grow font-bold">
-                    <h1>(<?= $user['user_id'] ?>) <?= $user['username'] ?></h1>
+                    <h1>(<?= $user['user_id'] ?>) <?= $user['roles'] ?> - <?= $user['username'] ?></h1>
                 </div>
                 <div class="right text-sm uppercase">
-                    <a href="" class="py-1 px-4 rounded bg-yellow-500 font-bold tracking-wide me-2">update</a>
+                    <a href="form_user.php?update=<?= $user['user_id'] ?>" class="py-1 px-4 rounded bg-yellow-500 font-bold tracking-wide me-2">update</a>
+                    <?php if($user['roles'] == 'user') : ?>
                     <a href="?del=<?= $user['user_id'] ?>" class="py-1 px-4 rounded bg-red-500 font-bold tracking-wide" 
                         onclick="return confirm('Yakin ingin delete akun milik <?= $user['username'] ?> dengan ID : <?= $user['user_id'] ?>?')">delete</a>
+                    <?php endif ?>
                 </div>
             </div>
             <div class="card-body flex w-full">
