@@ -5,18 +5,14 @@
         require_once 'App/User.php';
 
         if(isset($_POST['add_user'])) {
-            if($User->regist($_POST)) {
-                echo "<script>alert('data berhasil ditambahkan')</script>";
-                header("Location: view_user.php");
-            } else echo "<script>alert('gagal menambah data')</script>";
+            if($User->regist($_POST)) echo "<script>alert('data berhasil ditambahkan'); location.href='view_user.php';</script>";
+            else echo "<script>alert('gagal menambah data')</script>";
         }
 
         if(isset($_GET['update'])) $unedited = $User->getUser($_GET['update']); 
         if(isset($_POST['edit_user'])) {
-            if($User->updateUser($_POST)) {
-                echo "<script>alert('data berhasil diubah')</script>";
-                header("Location: view_user.php");
-            } else echo "<script>alert('gagal mengubah data')</script>";
+            if($User->updateUser($_POST)) echo "<script>alert('data berhasil diubah'); location.href='view_user.php';</script>";
+            else echo "<script>alert('gagal mengubah data')</script>";
         }
 
     ?>
@@ -51,28 +47,28 @@
                 </div>
                 <div class="form-item flex flex-col py-2">
                     <span class="uppercase text-xs text-gray-500 tracking-wider">password</span>
-                    <input type="password" name="pass" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['username'] : "" ?>">
+                    <input type="password" name="pass" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['password'] : "" ?>">
                 </div>
                 <div class="form-item flex flex-col py-2">
                     <span class="uppercase text-xs text-gray-500 tracking-wider">email</span>
-                    <input type="text" name="email" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['username'] : "" ?>">
+                    <input type="text" name="email" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['email'] : "" ?>">
                 </div>
                 <div class="form-item flex flex-col py-2">
                     <span class="uppercase text-xs text-gray-500 tracking-wider">fullname</span>
-                    <input type="text" name="fullname" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['username'] : "" ?>">
+                    <input type="text" name="fullname" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['full_name'] : "" ?>">
                 </div>
                 <div class="form-item flex flex-col py-2">
                     <span class="uppercase text-xs text-gray-500 tracking-wider">no telp</span>
-                    <input type="text" name="no_telp" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['username'] : "" ?>">
+                    <input type="text" name="no_telp" class="py-1 px-2 rounded shadow-md" value="<?= (isset($_GET['update'])) ? $unedited['no_telp'] : "" ?>">
                 </div>
                 <div class="form-item flex flex-col py-2">
                     <span class="uppercase text-xs text-gray-500 tracking-wider">address</span>
-                    <textarea type="text" name="address" class="py-1 px-2 rounded shadow-md"><?= (isset($_GET['update'])) ? $unedited['username'] : "" ?></textarea>
+                    <textarea type="text" name="address" class="py-1 px-2 rounded shadow-md"><?= (isset($_GET['update'])) ? $unedited['address'] : "" ?></textarea>
                 </div>
                 <div class="form-item flex flex-col py-2">
-                    <input type="submit" name="<?= (isset($_GET['update'])) ? 'edit_user' : 'add_user'; ?> "
+                    <input type="submit" name="<?= (isset($_GET['update'])) ? 'edit_user' : 'add_user'; ?>"
                     class="bg-blue-500 py-1 px-2 rounded shadow-md capitalize font-medium tracking-wide text-white cursor-pointer hover:bg-blue-700 transition-all" 
-                    value="submit">
+                    value="submit" id="btn-submit">
                 </div>
             </form>
         </section>
