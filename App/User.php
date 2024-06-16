@@ -61,6 +61,29 @@ class User extends Database {
         return mysqli_fetch_assoc($this->runQuery("SELECT * FROM tb_user WHERE user_id = $id"));
     }
 
+    public function updateUser(array $data)
+    {
+        $id         = $data["user_id"];
+        $username   = $data['username'];
+        $pass       = $data['pass'];
+        $email      = $data['email'];
+        $full_name  = $data['fullname'];
+        $no_telp    = $data['no_telp'];
+        $address    = $data['address'];
+        $role       = $data['role'];
+
+        return $this->runQuery("UPDATE tb_user SET 
+                username    ='$username', 
+                roles       ='$role',
+                `password`  ='$pass',
+                email       ='$email',
+                full_name   ='$full_name',
+                no_telp     ='$no_telp',
+                `address`   ='$address'
+                WHERE user_id = '$id';
+                ");
+    }
+
     public function deleteUser($id) 
     {
         return $this->runQuery("DELETE FROM tb_user WHERE user_id = $id");
