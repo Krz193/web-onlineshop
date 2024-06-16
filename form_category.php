@@ -22,7 +22,7 @@
     <title>Category</title>
 </head>
 <body>
-    <?php include_once "nav.html" ?>
+    <?php include_once "nav.php" ?>
     <main class="grid flex-row w-full p-5 justify-items-center">
         <header class="flex mb-5 justify-between w-9/12">
             <h1 class="page-title capitalize font-bold text-2xl">data category</h1>

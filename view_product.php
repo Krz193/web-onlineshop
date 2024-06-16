@@ -16,6 +16,7 @@
         <header class="flex mb-5 justify-between w-9/12">
             <h1 class="page-title capitalize font-bold text-2xl">data product</h1>
             <a href="" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">add product</a>
+            <a href="view_category.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">view category list</a>
         </header>
 
         <?php foreach($Product->getAllProducts() as $x) { ?>

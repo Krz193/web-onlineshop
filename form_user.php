@@ -23,7 +23,7 @@
     <title>Product</title>
 </head>
 <body>
-    <?php include_once "nav.html" ?>
+    <?php include_once "nav.php" ?>
     <main class="grid flex-row w-full p-5 justify-items-center">
         <section class="item p-6 mb-6 rounded-lg flex-row w-5/12 bg-gray-100 shadow-lg">
             <form action="form_user.php" method="post">
