@@ -5,7 +5,7 @@
         require_once "App/User.php";
 
         if(isset($_GET['del'])) {
-            if($User->deleteUser($_GET['del'])) echo "<script>alert('data berhasil dihapus')</script>";
+            if($User->deleteUser($_GET['del'])) echo "<script>alert('data berhasil dihapus'); location.href='view_user.php';</script>";
             else echo "<script>alert('gagal menghapus data')</script>";
         }
     ?>
