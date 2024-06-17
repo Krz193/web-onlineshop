@@ -9,19 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
+    <script>console.log("<?= (file_exists('uploads/'.$x['product_image'])) ? 'ada' : 'tidak' ?>")</script>
 </head>
 <body>
     <?php include_once "nav.php" ?>
     <main class="grid flex-row w-full p-5 justify-items-center">
-        <section class="card-container p-4 mb-10 rounded-lg flex-row w-5/12 bg-gray-100 shadow-md">
+        <section class="card-container p-4 mb-10 rounded-lg flex-row w-7/12 bg-gray-100 shadow-md">
             <div class="card-head flex">
-                <div class="left w-4/12">
-                    <p><?= $x["product_image"] ?></p>
-                </div>
+                <span class="left w-4/12 bg-cover bg-center bg-no-repeat" 
+                style="background-image: url('uploads/<?= (file_exists('uploads/'.$x['product_image'])) ? $x['product_image'] : 'placeholder.jpg' ?>');">
+                </span>
                 <div class="right grow p-3">
                     <h1 class="text-3xl font-bold"><?= $x["product_name"] ?></h1>
                     <p><?= $x["category_name"] ?></p>
-                    <p><?= $x["product_price"] ?></p>
+                    <p>Rp. <?= $x["product_price"] ?>,00</p>
                 </div>
             </div>
             <div class="card-body p-2">
