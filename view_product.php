@@ -22,6 +22,7 @@
             <h1 class="page-title capitalize font-bold text-2xl">data product</h1>
             <a href="form_product.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">add product</a>
             <a href="view_category.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">view category list</a>
+            <a href="view_checkout.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">checkout</a>
         </header>
 
         <?php foreach($Product->getAllProducts() as $x) { ?>
@@ -45,10 +46,34 @@
             <div class="action-btn w-full flex justify-end">
                 <a href="product_review.php?pid=<?= $x['product_id'] ?>" class="px-4 py-2 bg-blue-500 rounded-full capitalize text-white text-sm me-2">check review</a>
                 <a href="form_product.php?update=<?= $x['product_id'] ?>" class="px-4 py-2 bg-yellow-500 rounded-full capitalize text-white text-sm me-2">update</a>
-                <a href="?delete=<?= $x['product_id'] ?>" class="px-4 py-2 bg-red-500 rounded-full capitalize text-white text-sm">delete</a>
+                <a href="?delete=<?= $x['product_id'] ?>" class="px-4 py-2 bg-red-500 rounded-full capitalize text-white text-sm me-2">delete</a>
+                <button id="addToCart" 
+                onclick="addToCart(
+                    <?= $x['product_id'] ?>, 
+                    '<?= $x['product_name'] ?>', 
+                    '<?= $x['category_name'] ?>', 
+                    <?= $x['product_price'] ?>, 
+                    '<?= $x['product_image'] ?>')" 
+                class="px-4 py-2 bg-blue-500 capitalize text-sm rounded-full text-white">add to cart</button>
             </div>
         </section>
         <?php } ?>
     </main>
+
+    <script>
+        const products = {};
+        function addToCart(id, name, cat, price, img) {
+            products[id]={
+                id,
+                name,
+                cat,
+                price,
+                img,
+                qty:1
+            };
+            localStorage.setItem("products", JSON.stringify(products));
+            console.log(id);
+        }
+    </script>
 </body>
 </html>
