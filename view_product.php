@@ -69,7 +69,7 @@
                 cat,
                 price,
                 img,
-                qty:1
+                qty:'1'
             };
             localStorage.setItem("products", JSON.stringify(products));
             console.log(id);
