@@ -120,7 +120,7 @@
                 products : localStorage.getItem("products")
             }
             console.table(jsonData);
-            xhttp.open("POST", "App/coba.php", true);
+            xhttp.open("POST", "App/transaction.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             var params = 'jsonData=' + encodeURIComponent(JSON.stringify(jsonData));
