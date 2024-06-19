@@ -24,4 +24,11 @@ class Database
     {
         return mysqli_query($this->conn, $sql);
     }
+    
+    public function getInsertId()
+    {
+        $insert_id = mysqli_insert_id($this->conn);
+        mysqli_close($this->conn);
+        return $insert_id;
+    }
 }
