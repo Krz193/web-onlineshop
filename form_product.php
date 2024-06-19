@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php
+        session_start();
         require_once 'App/Product.php';
 
         if(isset($_GET['update'])) $unedited = $Product->getProduct($_GET['update']); 

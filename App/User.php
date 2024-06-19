@@ -38,9 +38,9 @@ class User extends Database {
         if (!$this->runQuery($sql)->num_rows) return false;
 
         session_start();
-        $_SESSION['id'] = $data['user_id'];
-        $_SESSION['username'] = $username;
-        $_SESSION['pass'] = $pass;
+        $_SESSION['user_id'] = $data['user_id'];
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['role'] = $data['roles'];
 
         return $data;
     }

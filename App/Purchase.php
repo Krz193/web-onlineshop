@@ -48,6 +48,11 @@ Class Purchase extends Database
                 VALUES ($purchase_id, '$payment_date', $payment_amount, '$payment_method', '$payment_status')";
         return $this->runQuery($sql);
     }
+
+    public function getAllPurchase()
+    {
+        return mysqli_fetch_all($this->runQuery("SELECT * FROM tb_purchase ORDER BY purchase_id DESC"), MYSQLI_ASSOC);
+    }
 }
 
 $Purchase = new Purchase();

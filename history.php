@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <?php
+        session_start();
         require_once 'App/Review.php';
-
         
         // var_dump($Review->getHistoryList(1));
     ?>
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <title>Product</title>
+    <title>History</title>
 </head>
 <body>
     <?php include_once "nav.php" ?>
@@ -20,7 +20,7 @@
             <h1 class="page-title capitalize font-bold text-2xl">history purchases</h1>
         </header>
 
-        <?php foreach($Review->getHistoryList(1) as $x) : 
+        <?php foreach($Review->getHistoryList($_SESSION['user_id']) as $x) : 
             $purchase_date = DateTime::createFromFormat('Y-m-d H:i:s', $x["purchase_date"]);
             $new_date = $purchase_date->format('Y-m-d');
         ?>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php
+        session_start();
         require_once 'App/Product.php';
 
         if(isset($_GET['delete'])) {
@@ -23,14 +24,16 @@
             <a href="form_category.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">add category</a>
         </header>
 
-        <?php foreach($Product->getAllCategories() as $x) { ?>
+        <?php foreach($Product->getAllCategories() as $x) : 
+                $product_count = $Product->countProducts($x['category_id']);
+            ?>
         <section class="item p-4 mb-6 rounded-lg flex-row w-9/12 bg-gray-100 shadow-md">
             <div class="card-body p-2 flex">
                 <p class="grow font-medium"><?= $x["category_id"] ?> - <?= $x['category_name'] ?></p>
                 <div class="action-btn flex justify-end">
                     <a href="form_category.php?update=<?= $x['category_id'] ?>" class="px-4 py-2 bg-yellow-500 rounded-full capitalize text-white text-sm me-2">update</a>
 
-                    <?php if($x['product_count']==0) : ?>
+                    <?php if($product_count==0) : ?>
                     <a href="?delete=<?= $x['category_id'] ?>" class="px-4 py-2 bg-red-500 rounded-full capitalize text-white text-sm" 
                         onclick="return confirm('Yakin ingin delete category <?= $x['category_name'] ?> dengan ID : <?= $x['category_id'] ?>?')">
                         delete
@@ -39,14 +42,14 @@
                 </div>
             </div>
             <div class="card-foot flex justify-between mt-3">
-                <p class="text-xs capitalize text-gray-400 inline">product count : <?= $x['product_count'] ?></p>
+                <p class="text-xs capitalize text-gray-400 inline">product count : <?= $product_count ?></p>
 
-                <?php if($x['product_count']>0) : ?>
+                <?php if($product_count>0) : ?>
                 <p class="text-xs text-red-400 inline tracking-wide">*cannot delete category with one or more product</p>
                 <?php endif ?>
             </div>
         </section>
-        <?php } ?>
+        <?php endforeach ?>
     </main>
 </body>
 </html>

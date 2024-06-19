@@ -15,17 +15,15 @@ foreach($products as $product) {
     $total_price += $product["qty"]*$product["price"];
 }
 
-$data["payment_status"] = ($data["payment_amount"] <= 0) ? 'unpaid' : (($data["payment_amount"] < $total_price) ? 'partly paid' : 'paid');
+session_start();
+$_SESSION["user_id"] = 1;
 
 // insert ke tb_purchase
 $Purchase->addPurchase($total_price);
-$purchase_id = $Purchase->getPurchaseId();
-
-
-// insert ke tb_payment
-$Purchase->addPayment($purchase_id, $data['payment_amount'], $data['payment_method'], $data['payment_status']);
 
 // insert ke tb_purchase_detail
+$purchase_id = $Purchase->getPurchaseId();
+
 foreach ($products as $product) {
     $Purchase->addPurchaseDetail($purchase_id, $product["id"], $product["qty"], $product["price"]);
 }

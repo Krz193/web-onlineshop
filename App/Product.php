@@ -100,10 +100,15 @@ class Product extends Database
     // CRUD table category
     public function getAllCategories()
     {
-        $sql = "SELECT tc.*, tp.product_name, COUNT(product_name) AS product_count FROM tb_category tc 
-                LEFT JOIN tb_product tp ON tp.category_id=tc.category_id GROUP BY tc.category_id";
+        $sql = "SELECT distinct * FROM tb_category tc";
                 
         return mysqli_fetch_all($this->runQuery($sql), MYSQLI_ASSOC);
+    }
+
+    public function countProducts($id)
+    {
+        $sql = "SELECT COUNT(product_name) as product_count from tb_product where category_id=$id ";
+        return mysqli_fetch_object($this->runQuery($sql))->product_count;
     }
 
     public function getCategory($id) 

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php
+        session_start();
         require_once 'App/Product.php';
 
         if(isset($_GET['delete'])) {
@@ -13,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <title>Product</title>
+    <title>Checkout</title>
 </head>
 <body>
     <?php include_once "nav.php" ?>
@@ -30,7 +31,7 @@
             </div>
             <div class="card-items w-8/12 mb-3">
                 <span class="text-xs text-gray-400 uppercase tracking-wider">payment method</span>
-                <select name="payment_method" id="payment_method" class="w-full py-2 px-4 shadow-md bg-white rounded">
+                <select name="payment_method" id="payment_method" class="w-full py-2 px-4 shadow-md bg-white rounded" required>
                     <option value="" selected disabled class="text-center">-- select payment method --</option>
                     <option value="cash" class="">cash</option>
                     <option value="transfer" class="">transfer</option>
@@ -38,7 +39,7 @@
             </div>
             <div class="card-items w-8/12 mb-3">
                 <span class="text-xs text-gray-400 uppercase tracking-wider">payment amount</span>
-                <input type="text" name="payment_amount" id="payment_amount"
+                <input type="text" name="payment_amount" id="payment_amount" required
                 class="shadow-md rounded self-end w-full px-3 py-1">                
             </div>
             <button 
@@ -107,9 +108,11 @@
             var xhttp = new XMLHttpRequest();
             let payment_amount = document.getElementById("payment_amount").value;
             let payment_method = document.getElementById("payment_method").value;
+            if(!payment_amount || !payment_method) return alert('All field must be filled')
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     alert("Pembelian berhasil");
+                    localStorage.removeItem("products");
                     location.href="history.php";
                 }
             };

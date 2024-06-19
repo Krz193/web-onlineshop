@@ -12,7 +12,7 @@ class Review extends Database
     {
         $sql = "SELECT tp.*, COUNT(tpd.`quantity`) AS jumlah_barang FROM tb_purchase tp 
                 INNER JOIN tb_purchase_detail tpd ON tpd.`purchase_id`=tp.`purchase_id`
-                WHERE tp.`user_id`=$id GROUP BY tp.`purchase_id`";
+                WHERE tp.`user_id`=$id GROUP BY tp.`purchase_id` ORDER BY tp.purchase_date DESC";
         return mysqli_fetch_all($this->runQuery($sql), MYSQLI_ASSOC);
     }
 
@@ -28,6 +28,23 @@ class Review extends Database
                 WHERE tpd.`purchase_id` = $id";
 
         return mysqli_fetch_all($this->runQuery($sql), MYSQLI_ASSOC);
+    }
+
+    public function checkReview($id, $pid)
+    {
+        return mysqli_num_rows($this->runQuery("SELECT rating FROM tb_product_review WHERE user_id='$id' AND product_id='$pid'"));
+    }
+
+    public function addReview($user_id, array $data)
+    {
+        $product_id     = $data['product_id'];
+        $rating         = $data['rating'];
+        $comment        = $data['comment'];
+        $date_created   = $this->date->format('Y-m-d H:i:s');
+        $sql = "INSERT INTO tb_product_review(product_id, user_id, rating, `comment`, review_date) VALUES (
+                '$product_id', '$user_id', '$rating', '$comment', '$date_created'
+                )";
+        return $this->runQuery($sql);
     }
 }
 $Review = new Review();

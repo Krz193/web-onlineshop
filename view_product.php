@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php
+        session_start();
         require_once 'App/Product.php';
 
         if(isset($_GET['delete'])) {
@@ -20,8 +21,10 @@
     <main class="grid flex-row w-full p-5 justify-items-center">
         <header class="flex mb-5 justify-between w-9/12">
             <h1 class="page-title capitalize font-bold text-2xl">data product</h1>
+            <?php if($_SESSION['role'] == 'admin') : ?>
             <a href="form_product.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">add product</a>
             <a href="view_category.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">view category list</a>
+            <?php endif ?>
             <a href="view_checkout.php" class="py-1 px-4 rounded bg-blue-500 font-bold tracking-wider uppercase text-white">checkout</a>
         </header>
 
@@ -45,8 +48,12 @@
             </div>
             <div class="action-btn w-full flex justify-end">
                 <a href="product_review.php?pid=<?= $x['product_id'] ?>" class="px-4 py-2 bg-blue-500 rounded-full capitalize text-white text-sm me-2">check review</a>
+
+                <?php if($_SESSION['role'] == 'admin') : ?>
                 <a href="form_product.php?update=<?= $x['product_id'] ?>" class="px-4 py-2 bg-yellow-500 rounded-full capitalize text-white text-sm me-2">update</a>
                 <a href="?delete=<?= $x['product_id'] ?>" class="px-4 py-2 bg-red-500 rounded-full capitalize text-white text-sm me-2">delete</a>
+                <?php endif ?>
+
                 <button id="addToCart" 
                 onclick="addToCart(
                     <?= $x['product_id'] ?>, 
@@ -54,7 +61,7 @@
                     '<?= $x['category_name'] ?>', 
                     <?= $x['product_price'] ?>, 
                     '<?= $x['product_image'] ?>')" 
-                class="px-4 py-2 bg-blue-500 capitalize text-sm rounded-full text-white">add to cart</button>
+                class="px-4 py-2 bg-blue-500 capitalize text-sm rounded-full text-white hover:scale-95">add to cart</button>
             </div>
         </section>
         <?php } ?>

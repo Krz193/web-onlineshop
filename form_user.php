@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php
+        session_start();
         require_once 'App/User.php';
 
         if(isset($_POST['add_user'])) {
@@ -20,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <title>Product</title>
+    <title>Users</title>
 </head>
 <body>
     <?php include_once "nav.php" ?>
