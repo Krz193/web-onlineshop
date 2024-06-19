@@ -2,20 +2,21 @@
 <html lang="en">
 <head>
     <?php
+        session_start();
         require_once "App/User.php";
 
         if(isset($_GET['del'])) {
-            if($User->deleteUser($_GET['del'])) echo "<script>alert('data berhasil dihapus')</script>";
+            if($User->deleteUser($_GET['del'])) echo "<script>alert('data berhasil dihapus'); location.href='view_user.php';</script>";
             else echo "<script>alert('gagal menghapus data')</script>";
         }
     ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
+    <title>Users</title>
 </head>
 <body>
-    <?php include_once "nav.html" ?>
+    <?php include_once "nav.php" ?>
     <main class="grid flex-row w-full p-5 justify-items-center">
         <header class="flex mb-5 justify-between w-9/12">
             <h1 class="page-title capitalize font-bold text-2xl">data user</h1>
@@ -26,12 +27,14 @@
         <section class="card-container p-4 mb-10 rounded-lg flex-row w-9/12 bg-gray-100 shadow-md">
             <div class="card-head flex w-full mb-3 justify-between">
                 <div class="left grow font-bold">
-                    <h1>(<?= $user['user_id'] ?>) <?= $user['username'] ?></h1>
+                    <h1>(<?= $user['user_id'] ?>) <?= $user['roles'] ?> - <?= $user['username'] ?></h1>
                 </div>
                 <div class="right text-sm uppercase">
-                    <a href="" class="py-1 px-4 rounded bg-yellow-500 font-bold tracking-wide me-2">update</a>
+                    <a href="form_user.php?update=<?= $user['user_id'] ?>" class="py-1 px-4 rounded bg-yellow-500 font-bold tracking-wide me-2">update</a>
+                    <?php if($user['roles'] == 'user') : ?>
                     <a href="?del=<?= $user['user_id'] ?>" class="py-1 px-4 rounded bg-red-500 font-bold tracking-wide" 
                         onclick="return confirm('Yakin ingin delete akun milik <?= $user['username'] ?> dengan ID : <?= $user['user_id'] ?>?')">delete</a>
+                    <?php endif ?>
                 </div>
             </div>
             <div class="card-body flex w-full">

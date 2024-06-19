@@ -38,9 +38,9 @@ class User extends Database {
         if (!$this->runQuery($sql)->num_rows) return false;
 
         session_start();
-        $_SESSION['id'] = $data['user_id'];
-        $_SESSION['username'] = $username;
-        $_SESSION['pass'] = $pass;
+        $_SESSION['user_id'] = $data['user_id'];
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['role'] = $data['roles'];
 
         return $data;
     }
@@ -59,6 +59,29 @@ class User extends Database {
     public function getUser($id)
     {
         return mysqli_fetch_assoc($this->runQuery("SELECT * FROM tb_user WHERE user_id = $id"));
+    }
+
+    public function updateUser(array $data)
+    {
+        $id         = $data["user_id"];
+        $username   = $data['username'];
+        $pass       = $data['pass'];
+        $email      = $data['email'];
+        $full_name  = $data['fullname'];
+        $no_telp    = $data['no_telp'];
+        $address    = $data['address'];
+        $role       = $data['role'];
+
+        return $this->runQuery("UPDATE tb_user SET 
+                username    ='$username', 
+                roles       ='$role',
+                `password`  ='$pass',
+                email       ='$email',
+                full_name   ='$full_name',
+                no_telp     ='$no_telp',
+                `address`   ='$address'
+                WHERE user_id = '$id';
+                ");
     }
 
     public function deleteUser($id) 
