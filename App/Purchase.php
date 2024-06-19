@@ -9,11 +9,11 @@ Class Purchase extends Database
     }
 
     // Insert table purchase
-    public function addPurchase(array $data)
+    public function addPurchase($total_price)
     {
         $user_id        = $_SESSION['user_id'];
-        $purchase_date  = $data['purchase_date'];
-        $total_price    = $data['total_price'];
+        $purchase_date  = $this->date->format('Y-m-d H:i:s');
+        $total_price    = $total_price;
         $sql = "INSERT INTO tb_purchase(user_id, purchase_date, total_price) VALUES (
                     $user_id,
                     '$purchase_date',
@@ -22,19 +22,32 @@ Class Purchase extends Database
         $this->runQuery($sql);
     }
 
-    // Insert table purchase_detail
-    public function addPurchaseDetail(array $data)
+    public function getPurchaseId()
     {
-        $purchase_id    = $data['purchase_id'];
-        $product_id     = $data['product_id'];
-        $quantity       = $data['quantity'];
-        $price          = $data['price'];
+        $sql = "SELECT purchase_id FROM tb_purchase ORDER BY purchase_date DESC LIMIT 1";
+        return mysqli_fetch_assoc($this->runQuery($sql))["purchase_id"];
+    }
+
+    // Insert table purchase_detail
+    public function addPurchaseDetail($purchase_id, $product_id, $quantity, $price)
+    {
         $sql = "INSERT INTO tb_purchase_detail(purchase_id, product_id, quantity, price) VALUES (
                     $purchase_id,
                     $product_id,
                     $quantity,
                     $price
                 )";
-        $this->runQuery($sql);
+        return $this->runQuery($sql);
+    }
+
+    // insert table payment
+    public function addPayment($purchase_id, $payment_amount, $payment_method, $payment_status)
+    {
+        $payment_date = $this->date->format('Y-m-d H:i:s');
+        $sql = "INSERT INTO tb_payment(purchase_id, payment_date, payment_amount, payment_method, payment_status)
+                VALUES ($purchase_id, '$payment_date', $payment_amount, '$payment_method', '$payment_status')";
+        return $this->runQuery($sql);
     }
 }
+
+$Purchase = new Purchase();
